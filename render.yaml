@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ali-candan-web
+    env: rust
+    buildCommand: cd server && cargo build --release
+    startCommand: cd server && cargo run --release

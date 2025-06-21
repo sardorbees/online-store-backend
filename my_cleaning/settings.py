@@ -74,11 +74,8 @@ ROOT_URLCONF = 'my_cleaning.urls'
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            "/home/html/example.com",
-            "/home/html/default",
-        ],
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / "templates"], 
     },
     {
         "BACKEND": "django.template.backends.jinja2.Jinja2",
@@ -263,7 +260,7 @@ CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SAMESITE = "Lax"  
 CSRF_COOKIE_SECURE = True 
 
-CSRF_TRUSTED_ORIGINS = ["https://tash-cleaning-admin-ufsx.vercel.app", "https://online-store-backend-1mjy.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://tash-cleaning-admin-one.vercel.app", "https://online-store-backend-1mjy.onrender.com"]
 
 CSRF_COOKIE_HTTPONLY = False
 

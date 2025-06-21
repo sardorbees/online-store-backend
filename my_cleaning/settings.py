@@ -255,7 +255,7 @@ SWAGGER_SETTINGS = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://admin-new-xp8v.onrender.com",
+    "https://online-store-backend-1mjy.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -263,7 +263,7 @@ CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SAMESITE = "Lax"  
 CSRF_COOKIE_SECURE = True 
 
-CSRF_TRUSTED_ORIGINS = ["https://tash-cleaning-admin-ufsx.vercel.app", "https://admin-new-xp8v.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://tash-cleaning-admin-ufsx.vercel.app", "https://online-store-backend-1mjy.onrender.com"]
 
 CSRF_COOKIE_HTTPONLY = False
 

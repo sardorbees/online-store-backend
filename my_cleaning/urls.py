@@ -16,6 +16,7 @@ from .views import get_csrf_token
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 
 ADMIN_ENABLED = False
@@ -27,7 +28,7 @@ def home(request):
     return HttpResponse("Главная страница сайта. Админка отключена или включена.")
 
 def home(request):
-    return HttpResponse("Главная страница сайта.")
+    return HttpResponse("Xush Kelibsiz KRAFTO-AGENCY Admin   - http://127.0.0.1:8000/ <- yonidan admin/ shu sozmi yozing -- http://127.0.0.1:8000/admin/ javob shunday bolishi kerak")
 
 class AdminAccessControlMiddleware:
     ALLOWED_IPS = ['127.0.0.1']  # разрешённые IP для доступа к админке
@@ -66,8 +67,12 @@ urlpatterns = [
     path("api/locations/", include('locations.urls')),
     path("api/video/", include('video.urls')),
     path("api/comment/", include('comment.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path("api/user/", include('user.urls')),
+    path("", include('calendars.urls')),
+    path('jet/', include('jet.urls', 'jet')),
     path("api/category/", include('category.urls')),
+    path("api/card/", include('card.urls')),
     path("api/category_title/", include('category_title.urls')),
     path("api/category_title_text/", include('category_title_text.urls')),
     path("api/company/", include('company.urls')),

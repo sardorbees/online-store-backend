@@ -14,31 +14,41 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <title>Tash-Cleaning</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #0f2027;
+      /* fallback */
+      background: linear-gradient(120deg, #2c5364, #203a43, #0f2027);
+      z-index: -1;
+    }
+
+    .login-box {
+      position: relative;
+      z-index: 1;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script type="module" src="../src/components/main/Main.jsx"></script>
-  <script type="module" src="../src/components/about/About.jsx"></script>
-  <script type="module" src="../src/components/buildcontrols/BuildControls.jsx"></script>
-  <script type="module" src="../src/components/categorylist/CategoryList.jsx"></script>
-  <script type="module" src="../src/components/compareimage/CompareImage.jsx"></script>
-  <script type="module" src="../src/components/contact/Contact.jsx"></script>
-  <script type="module" src="../src/components/footer/Footer.jsx"></script>
-  <script type="module" src="../src/components/header/Header.jsx"></script>
-  <script type="module" src="../src/components/locationlist/LocationList.jsx"></script>
-  <script type="module" src="../src/components/nav/Nav.jsx"></script>
-  <script type="module" src="../src/components/portfolio/Portfolio.jsx"></script>
-  <script type="module" src="../src/components/productdetail/ProductDetail.jsx"></script>
-  <script type="module" src="../src/components/register/Register.jsx"></script>
-  <script type="module" src="../src/components/sectione-one/Section.jsx"></script>
-  <script type="module" src="../src/components/services/Services.jsx"></script>
-  <script type="module" src="../src/components/telegramform/TelegramForm.jsx"></script>
 </body>
 
 </html>

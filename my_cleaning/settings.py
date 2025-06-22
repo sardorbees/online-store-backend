@@ -54,7 +54,21 @@ INSTALLED_APPS = [
     'comment',
     'rest_framework_simplejwt',
     'locations',
+    'jet',
+    'card',
+    'calendars'
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'rizotoha78@gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'rizotoha78@gmail.com'       # 👈 замените
+EMAIL_HOST_PASSWORD = 'rt2611931rt'     # 👈 используйте App Password (не обычный пароль!)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
 AUTH_USER_MODEL = 'user.CustomUser'
 
 MIDDLEWARE = [
@@ -124,13 +138,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = "ru-uz"
+TIME_ZONE = "Asia/Tehran"
 USE_I18N = True
-
 USE_TZ = True
+LOCALE_PATH = [BASE_DIR / "locale"]
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -238,7 +252,23 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    "DEFAULT_THROTTLE_RATES": {
+    "anon": "5/day",
+    "user": "5/day"
+    },
 }
+
+SESSION_EXPIRE_SECONDS = 3600  # 1 hour
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_TIMEOUT_REDIRECT = "/"
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_EXPIRE_SECONDS = 604800
+
+from datetime import timedelta
+AXES_FAILURE_LIMIT = 5
+AXES_RESET_ON_SUCCESS = True
+AXES_COOLOFF_TIME = timedelta(seconds=10)
+
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -248,7 +278,7 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    'USE_SESSION_AUTH': True,  # Отключить стандартную аутентификацию сессий в Swagger UI
+    'USE_SESSION_AUTH': True,
 }
 
 
@@ -284,27 +314,56 @@ CORS_ALLOW_METHODS = [
     'OPTIONS',
 ]
 
+STATIC_URL = '/static/'
+
+import os
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+
 JAZZMIN_SETTINGS = {
-    "site_title": "Tash-Cleaning",
-    "site_header": "Tash-Cleaning",
-    "site_brand": "Tash-Cleaning",
-    "site_icon": "images/my-avatar.jpg",
-    "copyright": "Tash-Cleaning",
-    # Add your own branding here
-    "site_logo": None,
-    "welcome_sign": "Xush Kelibsiz Tash-Cleaning",
-    # Copyright on the footer
+    "site_title": "Krafto-Agency",
+    "site_header": "Krafto-Agency",
+    "site_brand": "Krafto-Agency",
+    "site_icon": "../media/assets/img/aaa.png",
+    "copyright": "Krafto-Agency",
+    
+    "site_logo": "../media/assets/img/aaa.png",
+    "language_chooser": True,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "welcome_sign": "Xush Kelibsiz Krafto-Agency",
+    
     "copyright": "tash-cleaning-admin",
-    "user_avatar": None,
-    ############
-    # Top Menu #
-    ############
-    # Links to put along the top menu
+    "user_avatar": "../media/assets/img/1111.jpg",
+    "dashboard": [
+        {"type": "link", "title": "Documentation", "url": "http://127.0.0.1:8000/swagger/"},
+    ],
     "topmenu_links": [
-        {"name": "Xush Kelibsiz Tash-Cleaning Admin", "url": "home", "permissions": ["auth.view_user"]},
-        {"name": "tash-cleaning.uz", "url": "https://tash-cleaning-admin.vercel.app/", "permissions": ["auth.view_user"]},
+        {"name": "Xush Kelibsiz KRAFTO-AGENCY Admin", "url": "home", "permissions": ["auth.view_user"]},
+        {"name": "krafot-agency.uz", "url": "https://tash-cleaning-admin.vercel.app/", "permissions": ["auth.view_user"]},
+        {"name": "Локация-места", "url": "http://127.0.0.1:8000/admin/locations/location/", "permissions": ["auth.view_user"]},
+        {"name": "Коментария", "url": "http://127.0.0.1:8000/admin/comment/comment/", "permissions": ["auth.view_user"]},
+        {"name": "Web-sayt malumotlar", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/shop/product/"},
+        {"name": "Logo xizmati", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/logo/category/"},
+        {"name": "Banner xizmati", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/base/mainpagecard/add/"},
         {"model": "auth.User"},
-        {"app": "your_app_name"},
+        {"app": "books"},
+    ],
+    "custom_links": {
+        "books": [{
+            "name": "Make Messages", 
+            "url": "make_messages", 
+            "icon": "fas fa-comments",
+            "permissions": ["books.view_book"]
+        }]
+    },
+    "usermenu_links": [
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True, "icon": "fa-solid fa-user"},
+        {"name": "Помощь", "url": "https://t.me/ali_candaan", "new_window": True, "icon": "fa-solid fa-headset"},
+        {"name": "Пользователь", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True, "icon": "fa-solid fa-user"},
+        {"model": "auth.user"}
     ],
     "custom_links": {
         "your_app_name": [{
@@ -314,62 +373,72 @@ JAZZMIN_SETTINGS = {
             "permissions": ["your_app_name.clear_cache"]
         }]
     },
-    #############
-    # Side Menu #
-    #############
-    # Whether to display the side menu
     "show_sidebar": True,
-    # Whether to aut expand the menu
     "navigation_expanded": True,
-    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
-    # for the full list of 5.13.0 free icon classes
     "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
+        "auth": "fa-solid fa-headset",
+        "auth.user": "fa-solid fa-headset",
         "auth.Group": "fas fa-users",
-        "your_app.ModelName": "fas fa-box",
+        "your_app.ModelName": "fa-solid fa-headset",
     },
-    # # Icons that are used when one is not manually specified
-    "default_icon_parents": "fas fa-chevron-circle-right",
-    "default_icon_children": "fas fa-arrow-circle-right",
+    "default_icon_parents": "fa-solid fa-headset",
+    "default_icon_children": "fa-solid fa-solar-panel",
 
-    "related_modal_active": False,
-    "custom_js": None,
+    "related_modal_active": True,
+    "custom_js": True,
 
     "navigation_expanded": True,
     "hide_apps": [],
     "hide_models": [],
     "order_with_respect_to": ["auth", "your_app_name"],
 
-    "show_ui_builder": False,
+    "show_ui_builder": True,
+    "show_sidebar": True,
 
     "changeform_format": "collapsible",
-    # override change forms on a per modeladmin basis
     "changeform_format_overrides": {
         "auth.user": "collapsible",
         "auth.group": "vertical_tabs",
     },
+    "hide_apps": [],
+    "hide_models": [],
+    "order_with_respect_to": ["auth", "books"],
+"order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+
+"order_with_respect_to": ["auth"],
+
+"order_with_respect_to": ["books.author", "books.book"],
+
+
+"order_with_respect_to": ["books.author", "Make Messages"],
+
+
+"order_with_respect_to": [],
+
+
+"order_with_respect_to": ["doesnt_exist"],
 }
+
 JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
+    "navbar_small_text": True,
+    "footer_small_text": True,
+    "body_small_text": True,
+    "brand_small_text": True,
     "brand_colour": "navbar-success",
     "accent": "accent-teal",
     "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
+    "no_navbar_border": True,
+    "navbar_fixed": True,
     "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
+    "footer_fixed": True,
+    "sidebar_fixed": True,
     "sidebar": "sidebar-dark-info",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
+    "sidebar_nav_small_text": True,
+    "sidebar_disable_expand": True,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": True,
     "sticky_actions": True,
     "actions_sticky_top": True,
     "theme": "lux",
@@ -391,14 +460,8 @@ JAZZMIN_UI_TWEAKS = {
         "books": [{
             # Any Name you like
             "name": "Make Messages",
-
-            # url name e.g `admin:index`, relative urls e.g `/admin/index` or absolute urls e.g `https://domain.com/admin/index`
             "url": "make_messages",
-
-            # any font-awesome icon, see list here https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2 (optional)
             "icon": "fas fa-comments",
-
-            # a list of permissions the user must have to see this link (optional)
             "permissions": ["books.view_book"]
         }],
         # Add/Or a new group (name must not conflict with an installed app)
@@ -413,12 +476,23 @@ JAZZMIN_UI_TWEAKS = {
 
 from datetime import timedelta
 
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
     'AUTH_HEADER_TYPES': ('Bearer',),
+    "ROTATE_REFRESH_TOKENS": True,
+    "SIGNING_KEY": os.environ.get("SIGNING_KEY"),
+    "ALGORITHM": "HS512",
+    "VERIFYING_KEY": None,
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": (
+        "rest_framework_simplejwt.tokens.AccessToken",
+    ),
+    "TOKEN_TYPE_CLAIM": "token_type",
 }

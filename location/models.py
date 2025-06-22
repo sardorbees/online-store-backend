@@ -1,7 +1,7 @@
 from django.db import models
 
 class YourModel(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField("Локация",max_length=255)
 
 class Meta:
     verbose_name = 'Локация'
